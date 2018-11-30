@@ -9,7 +9,6 @@ void ofApp::setup(){
     setParticle();
     alphaNoise=0;
     alpha=ofMap(alphaNoise,0,1,10,75);
-    cout<<num<<endl;
     
     //store mesh color inform
     for(Particle* p:particles){
@@ -27,7 +26,7 @@ void ofApp::update(){
     for(int i=0;i<num;i++){
         particles[i]->update();
         particles[i]->warp();
-        mesh.addVertex(ofVec3f(particles[i]->PosX,particles[i]->PosY,0));
+        mesh.addVertex(ofVec3f(particles[i]->location.x,particles[i]->location.y,0));
     }
     
     
@@ -55,8 +54,9 @@ void ofApp::setParticle(){
         float x=ofRandom(ofGetWidth());
         float y=ofRandom(ofGetHeight());
         float adj=ofMap(y, 0, ofGetHeight(),225, 0);
+        float fft=ofRandom(3);
         ofColor c=ofColor(40,adj,255);
-        particles[i]=new Particle(&x, &y, &c);
+        particles.push_back(new Particle(&x, &y, &c, &fft));
     }
 }
 
