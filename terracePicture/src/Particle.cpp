@@ -1,7 +1,7 @@
 #include "Particle.hpp"
 
-Particle::Particle(float xIn,float yIn){
-    location=ofVec2f(xIn,yIn);
+Particle::Particle(float* xIn,float* yIn){
+    location=ofVec2f(*xIn,*yIn);
     insr=1;
     //cout<<"init"<<endl;
     velocity=ofVec2f(0,0);
@@ -15,7 +15,7 @@ void Particle::update(){
 }
 
 
-void Particle::update(float *_fft){
+void Particle::update(float* _fft){
     fft=*_fft;
     insr+=0.008;
     theta=ofNoise(location.x*0.0015,location.y*0.0010,insr)*TWO_PI;

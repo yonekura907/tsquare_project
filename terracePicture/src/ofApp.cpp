@@ -10,12 +10,15 @@ void ofApp::setup(){
     alphaNoise=0;
     alpha=ofMap(alphaNoise,0,1,10,75);
     deg=0;
+    resolution=20;
+    incr=0;
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    alpha=ofMap(alphaNoise,0,1,10,75);
-    alpha+=0.01;
+    alpha=ofMap(ofNoise(alphaNoise),0,1,10,75);
+    alphaNoise+=0.1;
     
     mesh.clearVertices();
     mesh.clearColors();
@@ -45,8 +48,11 @@ void ofApp::draw(){
     
     //fade out
     
+    /*
     ofSetColor(21, 21, 21, alpha);
     ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+     */
+    fadeout();
     
     
     //draw location of vertex
@@ -61,8 +67,22 @@ void ofApp::setParticle(){
     for (int i=0; i<num; i++) {
         float x=ofRandom(ofGetWidth());
         float y=ofRandom(ofGetHeight());
-        particles[i]=new Particle(x,y);
+        particles[i]=new Particle(&x,&y);
     }
+}
+
+//--------------------------------------------------------------
+void ofApp::fadeout(){
+    cols=int(ofGetWidth()/resolution);
+    rows=int(ofGetHeight()/resolution);
+    for (int i=0; i<cols; i++) {
+        for(int j=0;j<rows;j++){
+            alpha=ofMap(ofNoise(i,j,incr),0,1,10,255);
+            ofSetColor(21, 21, 21, alpha);
+            ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+        }
+    }
+    incr+=0.01;
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){

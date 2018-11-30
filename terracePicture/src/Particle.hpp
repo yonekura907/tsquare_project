@@ -7,7 +7,7 @@
 class Particle{
     
 public:
-    Particle(float xIn,float yIn);
+    Particle(float* xIn,float* yIn);
     void update();
     void update(float *_fft);
     void warp();

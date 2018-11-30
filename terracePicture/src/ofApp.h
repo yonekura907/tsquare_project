@@ -10,6 +10,7 @@ public:
     void update();
     void draw();
     void setParticle();
+    void fadeout();
     void keyPressed(int key);
     
     static const int num=131072;//pow(2,17)
@@ -19,4 +20,9 @@ public:
     ofVboMesh mesh;
     int deg;
     ofColor col;
+    float resolution;
+    int cols;
+    int rows;
+    float incr;
+    
 };
