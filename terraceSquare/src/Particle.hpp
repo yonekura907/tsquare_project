@@ -15,7 +15,6 @@ public:
     ofVec2f location;
     ofVec2f velocity;
     float fft;
-    //
 };
 
 #endif /* Particle_hpp */
