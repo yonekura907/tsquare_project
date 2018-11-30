@@ -9,11 +9,7 @@ void ofApp::setup(){
     setParticle();
     alphaNoise=0;
     alpha=ofMap(alphaNoise,0,1,10,75);
-    
-    //store mesh color inform
-    for(Particle* p:particles){
-        mesh.addColor(p->c);
-    }
+    deg=0;
 }
 
 //--------------------------------------------------------------
@@ -22,13 +18,25 @@ void ofApp::update(){
     alpha+=0.01;
     
     mesh.clearVertices();
+    mesh.clearColors();
+    
+    
     //store mesh inform
     for(int i=0;i<num;i++){
         particles[i]->update();
         particles[i]->warp();
         mesh.addVertex(ofVec3f(particles[i]->location.x,particles[i]->location.y,0));
+        float adj=ofMap(particles[i]->location.y, 0, ofGetHeight(),225, 0);
+        ofColor c;
+        if(deg>=0&&deg<120){
+            c=ofColor(40,adj,255);
+        }else if (deg>120&&deg<240){
+            c=ofColor(adj,225,40);
+        }else{
+            c=ofColor(225,40,adj);
+        }
+        mesh.addColor(c);
     }
-    
     
 }
 
@@ -53,10 +61,21 @@ void ofApp::setParticle(){
     for (int i=0; i<num; i++) {
         float x=ofRandom(ofGetWidth());
         float y=ofRandom(ofGetHeight());
-        float adj=ofMap(y, 0, ofGetHeight(),225, 0);
-        ofColor c=ofColor(40,adj,255);
-        particles[i]=new Particle(x,y,c);
-        //particles[i].init(x, y, c);
+        particles[i]=new Particle(x,y);
     }
 }
-
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+    
+    if(key=='a'){
+        deg=2;
+    }
+    
+    if(key=='s'){
+        deg=123;
+    }
+    
+    if(key=='d'){
+        deg=244;
+    }
+}

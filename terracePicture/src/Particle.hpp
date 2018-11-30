@@ -7,12 +7,11 @@
 class Particle{
     
 public:
-    Particle(float xIn,float yIn,ofColor cIn);
+    Particle(float xIn,float yIn);
     void update();
     void update(float *_fft);
     void warp();
     float theta,insr;
-    ofColor c;
     ofVec2f location;
     ofVec2f velocity;
     float fft;

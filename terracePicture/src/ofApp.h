@@ -10,11 +10,13 @@ public:
     void update();
     void draw();
     void setParticle();
+    void keyPressed(int key);
     
-    static const int num=65536;//pow(2,16)
+    static const int num=131072;//pow(2,17)
     Particle* particles[num];
     float alpha;
     float alphaNoise;
     ofVboMesh mesh;
-    
+    int deg;
+    ofColor col;
 };

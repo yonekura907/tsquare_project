@@ -1,8 +1,7 @@
 #include "Particle.hpp"
 
-Particle::Particle(float xIn,float yIn, ofColor cIn){
+Particle::Particle(float xIn,float yIn){
     location=ofVec2f(xIn,yIn);
-    c=cIn;
     insr=1;
     //cout<<"init"<<endl;
     velocity=ofVec2f(0,0);
