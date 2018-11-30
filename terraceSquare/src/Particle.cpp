@@ -1,37 +1,29 @@
-//
-//  Particle.cpp
-//  DHoF01
-//
-//  Created by 引田祐樹 on 2018/11/26.
-//
-
 #include "Particle.hpp"
 
-Particle::Particle(float *xIn,float *yIn, ofColor *cIn,float *_fft){
-    location.x=*xIn;
-    location.y=*yIn;
-    c=*cIn;
+Particle::Particle(float xIn,float yIn){
+    location=ofVec2f(xIn,yIn);
     insr=1;
-    lifeSpan=100;
     //cout<<"init"<<endl;
     velocity=ofVec2f(0,0);
-    fft=*_fft;
-}
-
-Particle::~Particle(){
-    
 }
 
 void Particle::update(){
-    velocity=ofVec2f(0,0);
     insr+=0.008;
     theta=ofNoise(location.x*0.0015,location.y*0.0010,insr)*TWO_PI;
-    velocity.x+=2*cos(theta);
-    velocity.y+=2*sin(theta);
-    location+=velocity*fft;
-    //cout<<PosX<<endl;
-    lifeSpan-=0.1;
+    velocity=ofVec2f(cos(theta),sin(theta));
+    location+=velocity;
 }
+
+
+void Particle::update(float *_fft){
+    cout<<"come fft"<<endl;
+    fft=ofMap(*_fft, 0, 1, 0.5, 3);
+    insr+=0.008;
+    theta=ofNoise(location.x*0.0015,location.y*0.0010,insr)*TWO_PI;
+    velocity=ofVec2f(cos(theta),sin(theta));
+    location+=velocity*fft;
+}
+
 
 void Particle::warp(){
     if(location.x>ofGetWidth()){
